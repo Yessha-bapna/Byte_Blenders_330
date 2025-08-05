@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+openai
+pymupdf
+tqdm
+langchain
+faiss-cpu
+pydantic
+python-dotenv
+sentence-transformers
+huggingface-hub
