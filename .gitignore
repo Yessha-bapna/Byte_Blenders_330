@@ -1,0 +1,80 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+ENV/
+
+# VSCode settings
+.vscode/
+
+# macOS & Windows
+.DS_Store
+Thumbs.db
+
+# Python cache
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+
+# Streamlit generated files
+.streamlit/config.toml
+.streamlit/credentials.toml
+
+# Model & HuggingFace cache
+*.ckpt
+*.bin
+*.h5
+*.pt
+*.onnx
+*.joblib
+*.pkl
+*.safetensors
+*.tflite
+.cache/
+huggingface/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Uploaded PDFs or temporary files
+uploads/
+*.pdf
+*.json
+*.csv
+
+# System files
+desktop.ini
+
+# Compiled C/C++ or Rust files
+*.so
+*.dylib
+*.dll
+*.o
+*.out
+
+# PyCharm
+.idea/
+
+# Test & coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+coverage.xml
+*.cover
+*.py,cover
+.cache
+
+# build tools
+dist/
+build/
+*.egg-info/
+.eggs/
