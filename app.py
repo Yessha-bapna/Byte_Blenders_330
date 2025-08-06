@@ -67,8 +67,11 @@ def retrieve_top_chunks(query, index, chunks, k=3):
     D, I = index.search(q_emb, k)
     return [chunks[i] for i in I[0]]
 
-def generate_answer(question, context_chunks):
+def generate_answer(question, context_chunks, max_context_tokens=400):
+    # Join chunks but limit total characters to avoid token overflow
     context_text = " ".join(context_chunks)
+    context_text = context_text[:max_context_tokens * 4]  # ~4 chars per token
+
     prompt = f"Answer the question based on the context:\n\nContext: {context_text}\n\nQuestion: {question}\nAnswer:"
     response = qa_model(prompt, max_new_tokens=256)
     return response[0]['generated_text']
@@ -118,4 +121,3 @@ with col2:
                 )
         else:
             st.error("Please type a question.")
-
