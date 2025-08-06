@@ -11,3 +11,4 @@ faiss-cpu
 transformers
 torch
 scikit-learn
+langchain
