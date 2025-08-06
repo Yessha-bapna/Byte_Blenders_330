@@ -104,10 +104,16 @@ with col2:
                 answer = generate_answer(question, top_chunks)
 
                 st.markdown(f"### ✅ Answer: {answer}")
-                st.markdown("**Matched Clause(s):**")
-                st.code("\n\n".join(top_chunks))
+                
+                # Show preview only
+                st.markdown("**Matched Clause(s) Preview:**")
+                for i, clause in enumerate(top_chunks, 1):
+                    preview = clause[:300] + ("..." if len(clause) > 300 else "")
+                    st.code(f"{preview}")
+                    with st.expander(f"📜 Show Full Clause {i}"):
+                        st.write(clause)
 
-                # Download JSON button
+                # Download JSON with full clauses
                 json_data = {
                     "question": question,
                     "answer": answer,
