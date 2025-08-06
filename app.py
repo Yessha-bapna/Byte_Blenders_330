@@ -100,20 +100,20 @@ with col2:
             st.warning("Please upload a document first.")
         elif question.strip():
             with st.spinner("Finding the best answer..."):
-                top_chunks = retrieve_top_chunks(question, st.session_state['index'], st.session_state['chunks'])
+                # Retrieve only the top 1 best clause for display
+                top_chunks = retrieve_top_chunks(question, st.session_state['index'], st.session_state['chunks'], k=1)
                 answer = generate_answer(question, top_chunks)
 
                 st.markdown(f"### ✅ Answer: {answer}")
                 
-                # Show preview only
-                st.markdown("**Matched Clause(s) Preview:**")
-                for i, clause in enumerate(top_chunks, 1):
-                    preview = clause[:300] + ("..." if len(clause) > 300 else "")
-                    st.code(f"{preview}")
-                    with st.expander(f"📜 Show Full Clause {i}"):
-                        st.write(clause)
+                # Show only 1 best matched clause in preview
+                st.markdown("**Matched Clause Preview:**")
+                preview = top_chunks[0][:300] + ("..." if len(top_chunks[0]) > 300 else "")
+                st.code(preview)
+                with st.expander("📜 Show Full Clause"):
+                    st.write(top_chunks[0])
 
-                # Download JSON with full clauses
+                # JSON still contains all clauses from the retrieval (k=3)
                 json_data = {
                     "question": question,
                     "answer": answer,
