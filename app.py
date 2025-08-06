@@ -25,7 +25,7 @@ st.markdown("""
             font-weight: 600;
             font-size: 16px;
             width: 100%; /* Make the button long */
-            cursor: pointer;
+            
         }
 
         div.stButton > button:hover {
