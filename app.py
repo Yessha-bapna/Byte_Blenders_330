@@ -5,6 +5,8 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from transformers import pipeline
 import json
+import requests
+
 
 # ------------------ STREAMLIT CONFIG ------------------
 st.set_page_config(page_title="HackRx Policy QA", layout="wide")
