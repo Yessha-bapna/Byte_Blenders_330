@@ -5,7 +5,7 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from transformers import pipeline
 import json
-
+from docx import Document
 
 
 # ------------------ STREAMLIT CONFIG ------------------
@@ -46,7 +46,6 @@ embedder = load_embedder()
 qa_model = load_qa_model()
 
 # ------------------ FUNCTIONS ------------------
-from docx import Document
 
 def load_and_chunk_file(file):
     chunks = []
