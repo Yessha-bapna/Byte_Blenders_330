@@ -12,3 +12,4 @@ transformers
 torch
 scikit-learn
 langchain
+python-docx
