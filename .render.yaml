@@ -2,8 +2,9 @@ services:
   - type: web
     name: policy-backend
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: python run.py
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python run.py"
     envVars:
-      - key: RELOAD
-        value: "false"
+      - key: PORT
+        value: 8000
