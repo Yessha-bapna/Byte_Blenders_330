@@ -5,7 +5,7 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from transformers import pipeline
 import json
-import requests
+
 
 
 # ------------------ STREAMLIT CONFIG ------------------
