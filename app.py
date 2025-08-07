@@ -46,16 +46,33 @@ embedder = load_embedder()
 qa_model = load_qa_model()
 
 # ------------------ FUNCTIONS ------------------
-def load_and_chunk_pdf(file):
-    doc = fitz.open(stream=file.read(), filetype="pdf")
+from docx import Document
+
+def load_and_chunk_file(file):
     chunks = []
-    for page in doc:
-        text = page.get_text("text")
-        parts = text.split("\n\n")
-        for part in parts:
-            if part.strip():
-                chunks.append(part.strip())
+    name = file.name.lower()
+
+    if name.endswith(".pdf"):
+        doc = fitz.open(stream=file.read(), filetype="pdf")
+        for page in doc:
+            text = page.get_text("text")
+            parts = text.split("\n\n")
+            chunks.extend([p.strip() for p in parts if p.strip()])
+
+    elif name.endswith(".docx"):
+        document = Document(file)
+        full_text = "\n".join([para.text for para in document.paragraphs])
+        chunks = [p.strip() for p in full_text.split("\n\n") if p.strip()]
+
+    elif name.endswith(".txt"):
+        text = file.read().decode("utf-8")
+        chunks = [p.strip() for p in text.split("\n\n") if p.strip()]
+
+    else:
+        st.error("Unsupported file type. Please upload PDF, DOCX, or TXT.")
+    
     return chunks
+
 
 def build_faiss_index(chunks):
     embeddings = embedder.encode(chunks, convert_to_numpy=True)
@@ -83,11 +100,11 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("1️⃣ Upload a Policy Document")
-    uploaded_file = st.file_uploader("Upload a .pdf policy document", type="pdf")
+    uploaded_file = st.file_uploader("Upload a policy document (PDF, DOCX, or TXT)", type=["pdf", "docx", "txt"])
 
     if uploaded_file:
         with st.spinner("Processing document..."):
-            chunks = load_and_chunk_pdf(uploaded_file)
+            chunks = load_and_chunk_file(uploaded_file)
             index, chunk_texts = build_faiss_index(chunks)
             st.session_state['index'] = index
             st.session_state['chunks'] = chunk_texts
